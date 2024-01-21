@@ -1,12 +1,17 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { inject, ref } from "vue";
+import { updateUserNameKey } from "../key";
 const userName = ref("");
+const updateUserName = inject<(name: string) => void>(
+  updateUserNameKey,
+  () => {}
+);
 
 const emits = defineEmits(["submit"]);
 
 const onSubmit = () => {
-  emits("submit", userName.value);
-  userName.value = "";
+  emits("submit");
+  updateUserName(userName.value);
 };
 </script>
 
