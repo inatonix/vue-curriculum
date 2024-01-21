@@ -5,6 +5,7 @@ import SettingsModal from "./components/SettingsModal.vue";
 import { provide, readonly, ref } from "vue";
 import { Tweet } from "./types/Tweet";
 import { updateUserNameKey, userNameKey } from "./key";
+import TweetDeleteModal from "./components/TweetDeleteModal.vue";
 
 const tweets = ref<Tweet[]>([
   { id: "1", text: "Hello, Vue 3!", userName: "test" },
@@ -36,6 +37,22 @@ const updateUserName = (name: string) => {
 };
 provide(userNameKey, readonly(userName));
 provide(updateUserNameKey, updateUserName);
+
+const isShowDeleteModal = ref(false);
+const isDeletingID = ref("");
+const onClickTweet = (id: string) => {
+  isShowDeleteModal.value = true;
+  isDeletingID.value = id;
+};
+
+const onDelete = () => {
+  deleteTweet(isDeletingID.value);
+};
+
+const deleteTweet = (id: string) => {
+  tweets.value = tweets.value.filter((tweet) => tweet.id !== id);
+  isShowDeleteModal.value = false;
+};
 </script>
 
 <template>
@@ -46,9 +63,16 @@ provide(updateUserNameKey, updateUserName);
     <Teleport to="body">
       <SettingsModal @submit="onSubmitSettings" v-if="isModalOpen" />
     </Teleport>
+    <Teleport to="body">
+      <TweetDeleteModal
+        v-if="isShowDeleteModal"
+        @submit="onDelete"
+        @cancel="isShowDeleteModal = false"
+      />
+    </Teleport>
     {{ userName }}
     <TweetForm @submit="onSubmitForm" />
-    <TweetList :tweets="tweets" />
+    <TweetList :tweets="tweets" @click="(id) => onClickTweet(id)" />
   </div>
 </template>
 

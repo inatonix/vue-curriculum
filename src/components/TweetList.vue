@@ -2,21 +2,25 @@
 import { PropType } from "vue";
 import { Tweet } from "../types/Tweet";
 
-// const tweets = ref<Tweet[]>([
-//   { id: "1", text: "Hello, Vue 3!" },
-//   { id: "2", text: "Hello, Vite!" },
-// ]);
 const props = defineProps({
   tweets: {
     type: Array as PropType<Tweet[]>,
   },
 });
+const emits = defineEmits(["click"]);
+const onClickTweet = (id: string) => {
+  emits("click", id);
+};
 </script>
 
 <template>
   <div class="tweet-list">
     <ul>
-      <li v-for="tweet in props.tweets" :key="tweet.id">
+      <li
+        v-for="tweet in props.tweets"
+        :key="tweet.id"
+        @click="() => onClickTweet(tweet.id)"
+      >
         {{ tweet.text }}
         <span class="user-name-span">@{{ tweet.userName }}</span>
       </li>
