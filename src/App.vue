@@ -15,20 +15,36 @@ const onSubmitForm = (tweet: string) => {
 </script>
 
 <template>
-  <div><TweetForm @submit="onSubmitForm" /> <TweetList :tweets="tweets" /></div>
+  <div class="container">
+    <div class="header">
+      <button>Settings</button>
+    </div>
+    <TweetForm @submit="onSubmitForm" />
+    <TweetList :tweets="tweets" />
+  </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  height: 100px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.header button {
+  border: none;
+  margin: 20px;
+  border-radius: 0.5em;
+  background-color: #6cd4f1;
+  color: white;
+  width: 200px;
+  font-size: 1.5em;
 }
 </style>
