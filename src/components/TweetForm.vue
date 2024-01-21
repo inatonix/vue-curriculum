@@ -4,8 +4,11 @@ const tweet = ref("");
 
 const onSubmit = () => {
   console.log(tweet.value);
+  emits("submit", tweet.value);
   tweet.value = "";
 };
+
+const emits = defineEmits(["submit"]);
 </script>
 
 <template>

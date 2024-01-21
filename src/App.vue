@@ -1,10 +1,21 @@
 <script setup lang="ts">
 import TweetForm from "./components/TweetForm.vue";
 import TweetList from "./components/TweetList.vue";
+import { ref } from "vue";
+import { Tweet } from "./types/Tweet";
+
+const tweets = ref<Tweet[]>([
+  { id: "1", text: "Hello, Vue 3!" },
+  { id: "2", text: "Hello, Vite!" },
+]);
+
+const onSubmitForm = (tweet: string) => {
+  tweets.value.push({ id: String(Math.random()), text: tweet });
+};
 </script>
 
 <template>
-  <div><TweetForm /> <TweetList /></div>
+  <div><TweetForm @submit="onSubmitForm" /> <TweetList :tweets="tweets" /></div>
 </template>
 
 <style scoped>
