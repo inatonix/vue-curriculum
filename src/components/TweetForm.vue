@@ -10,33 +10,34 @@ const onSubmit = () => {
 
 <template>
   <div>
-    <form @click.prevent class="tweet-form">
-      <input type="text" placeholder="What's happening?" v-model="tweet" />
-      <button @click="onSubmit">Tweet</button>
+    <form class="tweet-form">
+      <textarea placeholder="what's happening?" v-model="tweet"></textarea>
+      <button @click.prevent="onSubmit" type="submit">Tweet</button>
     </form>
   </div>
 </template>
 
 <style scoped>
 .tweet-form {
-  height: 6em;
   display: flex;
   flex-direction: column;
-  will-change: filter;
-  transition: filter 300ms;
+  align-items: center;
 }
 
-.tweet-form input {
-  height: 2em;
-  padding: 1.5em;
-  border: 1px solid #646cffaa;
+.tweet-form textarea {
+  height: 6em;
+  border: 1px solid #ccc;
   border-radius: 0.5em;
-  margin-bottom: 1em;
+  padding: 0.5em;
+  font-size: 1.5em;
+  border: 1px solid #ccc;
 }
 
 .tweet-form button {
+  margin-top: 20px;
   border-radius: 0.5em;
-  background-color: #646cff;
+  background-color: #81d6ee;
   color: white;
+  width: 200px;
 }
 </style>

@@ -3,7 +3,7 @@ import TweetForm from "./components/TweetForm.vue";
 </script>
 
 <template>
-  <div><TweetForm></TweetForm></div>
+  <div><TweetForm /></div>
 </template>
 
 <style scoped>
