@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
 const tweet = ref("");
 
 const onSubmit = () => {
@@ -8,14 +8,30 @@ const onSubmit = () => {
   tweet.value = "";
 };
 
+const isValidInput = ref(true);
+
+watch(tweet, (newTweet) => {
+  if (newTweet.length > 140 || newTweet.length < 0) {
+    isValidInput.value = false;
+  } else {
+    isValidInput.value = true;
+  }
+});
+
 const emits = defineEmits(["submit"]);
 </script>
 
 <template>
   <div>
     <form class="tweet-form">
-      <textarea placeholder="what's happening?" v-model="tweet"></textarea>
-      <button @click.prevent="onSubmit" type="submit">Tweet</button>
+      <textarea
+        :style="{ color: isValidInput ? 'black' : 'red' }"
+        placeholder="what's happening?"
+        v-model="tweet"
+      ></textarea>
+      <button :disabled="!isValidInput" @click.prevent="onSubmit" type="submit">
+        Tweet
+      </button>
     </form>
   </div>
 </template>
