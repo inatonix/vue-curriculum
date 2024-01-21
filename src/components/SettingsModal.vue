@@ -1,4 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from "vue";
+const userName = ref("");
+
+const emits = defineEmits(["submit"]);
+
+const onSubmit = () => {
+  emits("submit", userName.value);
+  userName.value = "";
+};
+</script>
 
 <template>
   <div class="modal-mask">
@@ -9,16 +19,45 @@
 
       <div class="modal-body">
         <slot name="body">
-          <p>Settings</p>
+          <span>Update Your Name</span>
+          <input v-model="userName" />
         </slot>
       </div>
       <div class="modal-footer">
         <slot name="footer">
-          <button>OK</button>
+          <button @click="onSubmit">OK</button>
         </slot>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(38, 38, 38, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container {
+  width: 300px;
+  height: 400px;
+  background-color: white;
+  border-radius: 0.5em;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.5em;
+  padding: 20px;
+}
+
+span {
+  font-size: 0.75em;
+}
+</style>

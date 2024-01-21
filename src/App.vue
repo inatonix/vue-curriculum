@@ -18,6 +18,11 @@ const isModalOpen = ref(false);
 const onClickSettings = () => {
   isModalOpen.value = true;
 };
+
+const onSubmitSettings = (userName: string) => {
+  console.log(userName);
+  isModalOpen.value = false;
+};
 </script>
 
 <template>
@@ -26,7 +31,7 @@ const onClickSettings = () => {
       <button @click="onClickSettings">Settings</button>
     </div>
     <Teleport to="body">
-      <SettingsModal v-if="isModalOpen" />
+      <SettingsModal @submit="onSubmitSettings" v-if="isModalOpen" />
     </Teleport>
     <TweetForm @submit="onSubmitForm" />
     <TweetList :tweets="tweets" />
